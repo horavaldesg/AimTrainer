@@ -5,6 +5,7 @@ using TMPro;
 public class ShotCount : MonoBehaviour
 {
     TextMeshProUGUI text;
+    public static float shotsHit;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,6 +15,7 @@ public class ShotCount : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        text.SetText(GameController.shotCount.ToString("Shots: ##"));
+        float accuracy = shotsHit / GameController.shotCount;
+        text.SetText(GameController.shotCount.ToString("Shots: ##") + "\n" + accuracy.ToString("Accuracy: ## %"));
     }
 }

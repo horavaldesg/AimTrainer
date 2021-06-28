@@ -6,7 +6,7 @@
             "id": "1e42b711-8bc5-4578-8b21-0d7cecb54222",
             "actions": [
                 {
-                    "name": "Grow",
+                    "name": "Jump",
                     "type": "Button",
                     "id": "3c9c913a-8848-4779-be2c-8ad259a773d5",
                     "expectedControlType": "Button",
@@ -52,6 +52,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "SpeedBoost",
+                    "type": "Button",
+                    "id": "8492c024-a0ad-4249-beb0-750a23c2c131",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -62,7 +70,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Grow",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -113,11 +121,22 @@
                 {
                     "name": "",
                     "id": "7a077a8b-edf4-4b9b-8eab-2de1fb0778c0",
-                    "path": "<Gamepad>/start",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Restart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "539de6d7-313d-4a33-b25f-443f181ae3ae",
+                    "path": "<Gamepad>/leftStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SpeedBoost",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

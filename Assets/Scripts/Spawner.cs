@@ -15,7 +15,17 @@ public class Spawner : MonoBehaviour
         targetCt = targetCount;
         Spawn();
     }
-   
+    private void Update()
+    {
+        //GameObject[] targets = GameObject.FindGameObjectsWithTag("Target");
+        
+        //    if (targets == null)
+        //    {
+        //        Spawn();
+        //    }
+       
+        
+    }
     public void Spawn()
     {
         for (int i = 0; i < targetCt; i++)
