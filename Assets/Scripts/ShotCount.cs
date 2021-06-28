@@ -16,6 +16,6 @@ public class ShotCount : MonoBehaviour
     void Update()
     {
         float accuracy = shotsHit / GameController.shotCount;
-        text.SetText(GameController.shotCount.ToString("Shots: ##") + "\n" + accuracy.ToString("Accuracy: ## %"));
+        text.SetText(GameController.shotCount.ToString("Shots: ##") + "\n" + shotsHit.ToString("Shots Hit: ##") + "\n" + accuracy.ToString("Accuracy: ##%"));
     }
 }

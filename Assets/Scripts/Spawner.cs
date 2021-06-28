@@ -17,22 +17,30 @@ public class Spawner : MonoBehaviour
     }
     private void Update()
     {
-        //GameObject[] targets = GameObject.FindGameObjectsWithTag("Target");
-        
+        GameObject[] targets = GameObject.FindGameObjectsWithTag("Target");
+        int i = 0;
+       
+        if(i >= targets.Length)
+        {
+            //Spawn();
+        }
+        //Debug.Log(targets[i]);
         //    if (targets == null)
         //    {
         //        Spawn();
         //    }
-       
-        
+
+
     }
     public void Spawn()
     {
+        GameController.shotCount = 0;
+        ShotCount.shotsHit = 0;
         for (int i = 0; i < targetCt; i++)
         {
             Instantiate(target, new Vector3(Random.Range(-10, 10), Random.Range(3, 10), 12), Quaternion.identity);
         }
-        Debug.Log("Spawn");
+        //Debug.Log("Spawn");
     }
     // Update is called once per frame
    
