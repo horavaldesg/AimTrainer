@@ -47,6 +47,10 @@ public class GameController : MonoBehaviour
 
     //Damage
     public float damage;
+
+    //Full auto
+    public float fireRate;
+
     private void Awake()
     {
         //Main Camera
@@ -66,8 +70,12 @@ public class GameController : MonoBehaviour
         //Jump
         controls.Gameplay.Jump.started += tgb => Jump();
 
-        //Shoot
-        controls.Gameplay.Shoot.started += tgb => Shoot();
+        //Shoot Single Fire
+        controls.Gameplay.Shoot.started += tgb => SingleShoot();
+
+        //Shoot Full Auto
+        //controls.Gameplay.Shoot.performed += tgb => AutoMaticShoot();
+
 
         //Restart
         controls.Gameplay.Restart.started += tgb => Restart();
@@ -171,7 +179,7 @@ public class GameController : MonoBehaviour
         Debug.DrawRay(camTransform.position, camTransform.forward, Color.green);
         if (Physics.Raycast(camTransform.position, camTransform.forward, out hit))
         {
-            if (hit.collider.CompareTag("Target"))
+            if (hit.collider.CompareTag("Target") || hit.collider.CompareTag("MovingTarget"))
             {
                 horizontalSens = horizontalSensConst / 2.5f;
                 verticalSens = verticalSensConst / 2.5f;
@@ -184,7 +192,7 @@ public class GameController : MonoBehaviour
             verticalSens = verticalSensConst;
         }
     }
-    void Shoot()
+    void SingleShoot()
     {
         shotCount++;
         RaycastHit hit;
@@ -193,14 +201,19 @@ public class GameController : MonoBehaviour
             if (hit.collider.CompareTag("Target"))
             {
                 ShotCount.shotsHit++;
-                Debug.Log("Hit target");
+                //Debug.Log("Hit target");
                 Destroy(hit.collider.gameObject);
             }
             if (hit.collider.CompareTag("MovingTarget"))
             {
+                ShotCount.shotsHit++;
                 hit.collider.GetComponent<MovingTarget>().health -= damage;
             }
         }
+    }
+    void AutoMaticShoot()
+    {
+        //
     }
     void Restart()
     {
@@ -212,6 +225,6 @@ public class GameController : MonoBehaviour
         }
         GameObject spawner = GameObject.FindGameObjectWithTag("Spawner");
         spawner.GetComponent<Spawner>().Spawn();
-        Debug.Log("Controller Reset");
+        //Debug.Log("Controller Reset");
     }
 }

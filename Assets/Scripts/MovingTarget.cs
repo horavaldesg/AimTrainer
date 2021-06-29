@@ -20,9 +20,10 @@ public class MovingTarget : MonoBehaviour
     void Update()
     {
         rect.localScale = new Vector3(health/150, rect.localScale.y, rect.localScale.z);
-        Debug.Log(health);
+        //Debug.Log(health);
         if(health <= 0)
         {
+            
             Destroy(this.gameObject);
         }
     }
