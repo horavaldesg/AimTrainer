@@ -44,6 +44,9 @@ public class GameController : MonoBehaviour
     [SerializeField] float speed = 3;
     [SerializeField] float speedBoost = 1;
 
+
+    //Damage
+    public float damage;
     private void Awake()
     {
         //Main Camera
@@ -86,6 +89,9 @@ public class GameController : MonoBehaviour
         //Rotation
         controls.Gameplay.Rotation.performed += tgb => rotate = tgb.ReadValue<Vector2>();
         controls.Gameplay.Rotation.canceled += tgb => rotate = Vector2.zero;
+
+        //Damage
+        damage = 30;
        
     }
     void Jump()
@@ -189,6 +195,10 @@ public class GameController : MonoBehaviour
                 ShotCount.shotsHit++;
                 Debug.Log("Hit target");
                 Destroy(hit.collider.gameObject);
+            }
+            if (hit.collider.CompareTag("MovingTarget"))
+            {
+                hit.collider.GetComponent<MovingTarget>().health -= damage;
             }
         }
     }

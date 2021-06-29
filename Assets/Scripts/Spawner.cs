@@ -9,6 +9,7 @@ public class Spawner : MonoBehaviour
     public GameObject target;
     [SerializeField] int targetCount;
     int targetCt;
+    [SerializeField] bool moving;
     private void Awake()
     {
         
