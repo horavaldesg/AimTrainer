@@ -132,7 +132,7 @@
                 {
                     "name": "",
                     "id": "539de6d7-313d-4a33-b25f-443f181ae3ae",
-                    "path": "<Gamepad>/leftStickPress",
+                    "path": "<DualShockGamepad>/leftStickPress",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Player Controls.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Input Actions/Player Controls.inputactions'
 
 using System;
 using System.Collections;
@@ -145,7 +145,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""539de6d7-313d-4a33-b25f-443f181ae3ae"",
-                    ""path"": ""<Gamepad>/leftStickPress"",
+                    ""path"": ""<DualShockGamepad>/leftStickPress"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

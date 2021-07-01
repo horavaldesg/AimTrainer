@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.DualShock;
 
 public class GameController : MonoBehaviour
 {
+    
+    
     //Animator
     Animator animator;
 
@@ -59,8 +62,13 @@ public class GameController : MonoBehaviour
     //Full auto
     public float fireRate;
 
+    //LightBar
+    DualShockGamepad gamepad;
+
     private void Awake()
     {
+        gamepad = (DualShockGamepad)Gamepad.all[0];
+        gamepad.SetLightBarColor(Color.blue);
         //Animator
         animator = GameObject.FindGameObjectWithTag("PlayerAnim").GetComponent<Animator>();
 
@@ -197,6 +205,7 @@ public class GameController : MonoBehaviour
         Debug.DrawRay(camTransform.position, camTransform.forward, Color.green);
         if (Physics.Raycast(camTransform.position, camTransform.forward, out hit))
         {
+            gamepad.SetLightBarColor(hit.collider.GetComponent<MeshRenderer>().material.color);
             if (hit.collider.CompareTag("Target") || hit.collider.CompareTag("MovingTarget"))
             {
                 horizontalSens = horizontalSensConst / 2.5f;
