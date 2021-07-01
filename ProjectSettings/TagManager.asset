@@ -7,6 +7,7 @@ TagManager:
   - Target
   - Spawner
   - MovingTarget
+  - PlayerAnim
   layers:
   - Default
   - TransparentFX

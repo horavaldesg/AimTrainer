@@ -5,6 +5,9 @@ using UnityEngine.InputSystem;
 
 public class GameController : MonoBehaviour
 {
+    //Animator
+    Animator animator;
+
     //Controller
     PlayerControls controls;
 
@@ -19,8 +22,13 @@ public class GameController : MonoBehaviour
     //Sensitivity
     [SerializeField] float horizontalSens;
     [SerializeField] float verticalSens;
+
     float horizontalSensConst;
     float verticalSensConst;
+
+    [SerializeField] float adsSensHorizontal;
+    [SerializeField] float adsSensVertical;
+    bool ads;
 
     //Jumping/Gravity
     [SerializeField] Transform checkPos;
@@ -53,6 +61,9 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
+        //Animator
+        animator = GameObject.FindGameObjectWithTag("PlayerAnim").GetComponent<Animator>();
+
         //Main Camera
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         FOVConst = mainCamera.fieldOfView;
@@ -114,12 +125,18 @@ public class GameController : MonoBehaviour
     {
         mainCamera.fieldOfView = FOVConst - 10;
         //scopeCam.SetActive(true);
+        horizontalSens = adsSensHorizontal;
+        verticalSens = adsSensVertical;
+        ads = true;
 
     }
     void StopAim()
     {
         mainCamera.fieldOfView = FOVConst;
         //scopeCam.SetActive(false);
+        horizontalSens = horizontalSensConst;
+        verticalSens = verticalSensConst;
+        ads = false;
     }
     private void OnEnable()
     {
@@ -142,6 +159,8 @@ public class GameController : MonoBehaviour
         float sideSpeed = move.x * speed * speedBoost * Time.deltaTime;
         movement += transform.right * sideSpeed;
 
+        //Movement Animator
+
         //Gravity
         verticalSpeed += Gravity * Time.deltaTime;
         movement += transform.up * verticalSpeed * Time.deltaTime;
@@ -152,13 +171,12 @@ public class GameController : MonoBehaviour
             grounded = true;
             verticalSpeed = 0;
         }
-       
 
+        
 
         //transform.Translate(m, Space.World);
         
         cc.Move(movement);
-
         //Player Rotation
         Vector2 r = new Vector2(0, rotate.x) * horizontalSens * Time.deltaTime;
         transform.Rotate(r, Space.Self);
@@ -184,9 +202,9 @@ public class GameController : MonoBehaviour
                 horizontalSens = horizontalSensConst / 2.5f;
                 verticalSens = verticalSensConst / 2.5f;
             }
-            
+
         }
-        else
+        else if (!ads)
         {
             horizontalSens = horizontalSensConst;
             verticalSens = verticalSensConst;
