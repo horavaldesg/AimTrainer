@@ -68,7 +68,8 @@ public class GameController : MonoBehaviour
     private void Awake()
     {
         gamepad = (DualShockGamepad)Gamepad.all[0];
-        gamepad.SetLightBarColor(Color.blue);
+        gamepad.SetLightBarColor(Color.yellow);
+
         //Animator
         animator = GameObject.FindGameObjectWithTag("PlayerAnim").GetComponent<Animator>();
 
