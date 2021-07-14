@@ -64,10 +64,14 @@ public class GameController : MonoBehaviour
     //LightBar
     DualShockGamepad gamepad;
 
+    //Rumbles
+    [SerializeField] bool Rumbles;
     private void Awake()
     {
         gamepad = (DualShockGamepad)Gamepad.all[0];
         gamepad.SetLightBarColor(Color.yellow);
+
+        
 
         //Animator
         animator = GameObject.FindGameObjectWithTag("PlayerAnim").GetComponent<Animator>();
@@ -91,6 +95,13 @@ public class GameController : MonoBehaviour
 
         //Shoot Single Fire
         controls.Gameplay.Shoot.started += tgb => SingleShoot();
+
+        //Rumbles
+        if (Rumbles)
+        {
+            controls.Gameplay.Shoot.started += tgb => StartRumbles();
+            controls.Gameplay.Shoot.canceled += tgb => StopRumble();
+        }
 
         //Shoot Full Auto
         //controls.Gameplay.Shoot.performed += tgb => AutoMaticShoot();
@@ -152,6 +163,7 @@ public class GameController : MonoBehaviour
     }
     private void OnDisable()
     {
+        gamepad.ResetHaptics();
         controls.Gameplay.Disable();
     }
 
@@ -243,6 +255,14 @@ public class GameController : MonoBehaviour
             }
         }
         
+    }
+    void StartRumbles()
+    {
+        gamepad.SetMotorSpeeds(0.25f, 0.75f);
+    }
+    void StopRumble()
+    {
+        gamepad.ResetHaptics();
     }
     void AutoMaticShoot()
     {
