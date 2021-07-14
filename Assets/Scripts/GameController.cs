@@ -103,6 +103,7 @@ public class GameController : MonoBehaviour
             controls.Gameplay.Shoot.canceled += tgb => StopRumble();
         }
 
+
         //Shoot Full Auto
         //controls.Gameplay.Shoot.performed += tgb => AutoMaticShoot();
 
@@ -166,10 +167,10 @@ public class GameController : MonoBehaviour
         gamepad.ResetHaptics();
         controls.Gameplay.Disable();
     }
-
+   
     private void Update()
     {
-        
+       
         movement = Vector3.zero;
 
         //Forward/Backward Movement
