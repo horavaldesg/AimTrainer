@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.DualShock;
-
 public class GameController : MonoBehaviour
 {
     
@@ -28,7 +27,7 @@ public class GameController : MonoBehaviour
 
     float horizontalSensConst;
     float verticalSensConst;
-
+    float rotY;
     [SerializeField] float adsSensHorizontal;
     [SerializeField] float adsSensVertical;
     bool ads;
@@ -158,6 +157,7 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
+        
         movement = Vector3.zero;
 
         //Forward/Backward Movement
@@ -194,31 +194,35 @@ public class GameController : MonoBehaviour
         transform.rotation = q;
 
         //Camera Rotation
-        Vector2 rC = new Vector2(-rotate.y, 0) * verticalSens * Time.deltaTime;
-        camTransform.transform.Rotate(rC, Space.Self);
-        Quaternion rQ = camTransform.transform.rotation;
-        rQ.eulerAngles = new Vector3(rQ.eulerAngles.x, rQ.eulerAngles.y, 0);
         
+        rotY += -rotate.y * verticalSens * Time.deltaTime;
+        rotY = Mathf.Clamp(rotY, -90, 90);
+        camTransform.transform.localRotation = Quaternion.Euler(rotY, 0, 0);
+
         
-        camTransform.transform.rotation = rQ;
 
         RaycastHit hit;
         Debug.DrawRay(camTransform.position, camTransform.forward, Color.green);
         if (Physics.Raycast(camTransform.position, camTransform.forward, out hit))
         {
-            gamepad.SetLightBarColor(hit.collider.GetComponent<MeshRenderer>().material.color);
+            if (hit.collider.GetComponent<MeshRenderer>())
+            {
+                gamepad.SetLightBarColor(hit.collider.GetComponent<MeshRenderer>().material.color);
+
+            }
             if (hit.collider.CompareTag("Target") || hit.collider.CompareTag("MovingTarget"))
             {
                 horizontalSens = horizontalSensConst / 2.5f;
                 verticalSens = verticalSensConst / 2.5f;
             }
-
+            
         }
         else if (!ads)
         {
             horizontalSens = horizontalSensConst;
             verticalSens = verticalSensConst;
         }
+        
     }
     void SingleShoot()
     {
@@ -238,6 +242,7 @@ public class GameController : MonoBehaviour
                 hit.collider.GetComponent<MovingTarget>().health -= damage;
             }
         }
+        
     }
     void AutoMaticShoot()
     {
